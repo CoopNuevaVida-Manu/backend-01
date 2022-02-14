@@ -1,0 +1,9 @@
+Funcional:
+    *departamento:
+        GET
+        GetID
+        POST
+        PUT
+        DELETE
+Pendiente:
+    *destino
