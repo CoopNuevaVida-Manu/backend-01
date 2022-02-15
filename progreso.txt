@@ -5,5 +5,36 @@ Funcional:
         POST
         PUT
         DELETE
-Pendiente:
+    
     *destino
+        GET
+        GetID
+        POST
+        PUT
+        DELETE
+
+    *filial
+        GET
+        GetID
+        POST
+        PUT
+        DELETE
+
+    *origen de fondos
+        GET
+        GetID
+        POST
+        PUT
+        DELETE
+
+    *parentesco
+        GET
+        GetID
+        POST
+        PUT
+        DELETE
+
+    
+
+Pendiente:
+    

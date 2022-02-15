@@ -18,6 +18,15 @@ class server{
         
         //destino
         this.app.use('/destino', require('../routes/destino'));
+
+        //filial
+        this.app.use('/filial', require('../routes/filial'));
+
+        //Origen de fondos
+        this.app.use('/origen_fondos', require('../routes/origen_fondos'));
+
+        //parentesco
+        this.app.use('/parentesco', require('../routes/parentesco'));
         
     }
 

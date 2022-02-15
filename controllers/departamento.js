@@ -9,7 +9,7 @@ const depGet = (req, resp = response)=>{
         if(err){
             throw err
         }
-        resp.send(res.rows)
+        resp.json(res.rows)
     })
 }
 
@@ -22,7 +22,7 @@ const depGetId =(req, resp = response)=>{
         if(err){
             throw err
         }
-        resp.send(res.rows)
+        resp.json(res.rows)
     })
 }
 
@@ -31,7 +31,7 @@ const depPost = (req, resp = response) =>{
     
     const { departamento } = req.body;
 
-    conexion.query( `INSERT INTO departamento( departamento ) VALUES('${departamento}')` , (err, result)=>{
+    conexion.query( `INSERT INTO departamento( departamento ) VALUES('${departamento}')` , (err, res)=>{
         if(err){
             throw err
         }else{
@@ -63,7 +63,7 @@ const depPut = (req, resp = response) =>{
     
     const { id, departamento } = req.body;
 
-    conexion.query( `UPDATE public.departamento SET departamento='${departamento}' WHERE id_departamento = ${id}` , (err, result)=>{
+    conexion.query( `UPDATE departamento SET departamento='${departamento}' WHERE id_departamento = ${id}` , (err, res)=>{
         if(err){
             throw err
         }else{

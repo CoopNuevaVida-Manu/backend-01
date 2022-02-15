@@ -24,7 +24,7 @@ const destGetId = (req, resp = response)=>{
         if(err){
             throw err
         }
-        resp.send(res.rows)
+        resp.json(res.rows)
     })
 };
 
@@ -33,7 +33,7 @@ const destPOST = (req, resp = response)=>{
 
     const {destino} = req.body;
 
-    conexion.query( `INSERT INTO destino( destino ) VALUES('${destino}')` , (err, result)=>{
+    conexion.query( `INSERT INTO destino( destino ) VALUES('${destino}')` , (err, res)=>{
         if(err){
             throw err
         }else{
@@ -49,20 +49,37 @@ const destDelete = (req, resp = response)=>{
 
     const {id} = req.params;
 
-    conexion.query(`DELETE FROM departamento WHERE id_departamento = ${id}`, (err, res)=>{
+    conexion.query(`DELETE FROM destino WHERE id_destino = ${id}`, (err, res)=>{
         if(err){
             throw err
         }else{
-            res.json({
+            resp.json({
                 delete: true
             })
         }
     })
 }
 
+//PUT
+const destPut = (req, resp = response) =>{
+    
+    const { id, destino } = req.body;
+
+    conexion.query( `UPDATE destino SET destino='${destino}' WHERE id_destino = ${id}` , (err, res)=>{
+        if(err){
+            throw err
+        }else{
+            resp.json({
+                put : true
+            });
+        }
+    } )
+}
+
 module.exports = {
     destGet,
     destGetId,
     destPOST,
-    destDelete
+    destDelete,
+    destPut
 }
