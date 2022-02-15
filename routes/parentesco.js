@@ -16,7 +16,7 @@ router.post('/', parentPOST);
 //Eliminar un destino
 router.delete('/:id' , parentDelete);
 
-//actualizar un destino 
+//actualizar un parentesco 
 router.put('/', parentPut)
 
 module.exports= router;

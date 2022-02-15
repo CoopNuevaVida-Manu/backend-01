@@ -34,7 +34,23 @@ Funcional:
         PUT
         DELETE
 
+    *razon_operacion
+        GET
+        GetID
+        POST
+        PUT
+        DELETE
+
+    *transaccion
+        GET
+        GetID
+        POST
+        PUT
+        DELETE
+
     
 
 Pendiente:
+1012
+3002
     

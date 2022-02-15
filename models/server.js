@@ -27,6 +27,14 @@ class server{
 
         //parentesco
         this.app.use('/parentesco', require('../routes/parentesco'));
+
+        //razon de operacion
+        this.app.use('/razon_parentesco', require('../routes/razon_operacion'));
+
+        //transacciones
+        this.app.use('/transaccion', require('../routes/transaccion'));
+
+
         
     }
 
