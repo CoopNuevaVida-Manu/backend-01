@@ -33,16 +33,20 @@ const colabPost = (req, resp = response) =>{
             colaborador_usuario,
             id_departamento,
             id_oficiona,
-            colaborador_password} = req.body;
+            colaborador_password,
+            id_estado} = req.body;
 
     conexion.query( `INSERT INTO public.colaborador(colaborador_nombre,
-                                        colaborador_usuario, id_departamento,
+                                        colaborador_usuario, 
+                                        id_departamento,
                                         id_oficiona, 
-                                        colaborador_password) VALUES ( '${colaborador_nombre}', 
+                                        colaborador_password,
+                                        id_estado) VALUES ( '${colaborador_nombre}', 
                                                                         '${colaborador_usuario}',
                                                                          ${id_departamento}, 
                                                                          ${id_oficiona}, 
-                                                                         '${colaborador_password}');` , (err, res)=>{
+                                                                         '${colaborador_password}',
+                                                                         ${id_estado});` , (err, res)=>{
         if(err){
             throw err
         }else{
@@ -59,7 +63,7 @@ const colabDelete =(req, resp = response)=>{
 
     const { id } = req.params;
 
-    conexion.query(`DELETE FROM colaborador WHERE id_departamento = ${id}`, (err, res)=>{
+    conexion.query(`DELETE FROM colaborador WHERE id_colaborador = ${id}`, (err, res)=>{
         if(err){
             throw err
         }
@@ -72,9 +76,21 @@ const colabDelete =(req, resp = response)=>{
 //PUT
 const colabPut = (req, resp = response) =>{
     
-    const { id, departamento } = req.body;
+    const { id, 
+            colaborador_nombre,
+            colaborador_usuario,
+            id_departamento,
+            id_oficiona,
+            colaborador_password,
+            id_estado } = req.body;
 
-    conexion.query( `UPDATE colaborador SET departamento='${departamento}' WHERE id_departamento = ${id}` , (err, res)=>{
+    conexion.query( `UPDATE colaborador SET colaborador_nombre='${colaborador_nombre}',
+                                            colaborador_usuario='${colaborador_usuario}',
+                                            id_departamento= ${id_departamento},
+                                            id_oficiona=${id_oficiona},
+                                            colaborador_password='${colaborador_password}',
+                                            id_estado=${id_estado}
+                                             WHERE id_colaborador = ${id}` , (err, res)=>{
         if(err){
             throw err
         }else{

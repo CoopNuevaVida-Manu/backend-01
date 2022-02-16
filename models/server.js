@@ -13,6 +13,9 @@ class server{
 
     routes(){
 
+        //colaboradores
+        this.app.use('/colaborador', require('../routes/colaborador'));
+
         //departamento
         this.app.use('/departamento' , require('../routes/departamento'));
         
