@@ -13,6 +13,9 @@ class server{
 
     routes(){
 
+        //login
+        this.app.use('/login', require('../routes/login'));
+
         //colaboradores
         this.app.use('/colaborador', require('../routes/colaborador'));
 

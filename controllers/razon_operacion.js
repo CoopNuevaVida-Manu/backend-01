@@ -24,7 +24,7 @@ const razopGetID = (req, resp = response)=>{
         if(err){
             throw err
         }
-        resp.send(res.rows)
+        resp.json(res.rows)
     })
 };
 
