@@ -22,7 +22,9 @@ const razopGetID = (req, resp = response)=>{
 
     conexion.query(`SELECT * FROM razon_operacion WHERE id_razon_operacion = ${id}`, (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                delete : false
+            })
         }
         resp.json(res.rows)
     })

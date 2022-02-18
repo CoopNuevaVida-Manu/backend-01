@@ -1,5 +1,5 @@
 const { response } = require('express');
-
+const bcryp = require('bcryptjs');
 
 
 const conexion = require('../DB/db');
@@ -25,28 +25,57 @@ const login = (req, resp= response)=>{
                         msg : "Este usuario actualmente se encuentra desactivado"
                     })
                 }else{
-                    if(password === colaborador_password){
-                        if(password.length < 50){
+                    if(colaborador_password.length > 50){
+                        if(bcryp.compareSync(password, colaborador_password)){
+                            return resp.json({
+                                msg: "Contraseña correcta",
+                                cryp: true
+
+                            })
+                        }else{
+                            return resp.json({
+                                msg: "Contraseña incorrecta",
+                                cryp: true
+                            })
+                        }
+                    }else{
+                        if(password === colaborador_password){
                             return resp.json({
                                 msg: "Contraseña correcta",
                                 cryp: false
                             });
                         }else{
                             return resp.json({
-                                msg: "Contraseña correcta",
-                                cryp: true
+                                msg: "Contraseña incorrecta",
+                                cryp: false
                             })
-                        }
-                        
-                    }else{
-                        return resp.json({
-                            msg: "Contraseña incorrecta"
-                        })
-                    }
+                        }                          
+                    }   
                 }
             }
         }
     })
 }
 
-module.exports = login;
+
+
+const loginPut = (req, resp)=>{
+    const { id, password} = req.body;
+
+    const salt = bcryp.genSaltSync();
+    const passwordCryp = bcryp.hashSync(password, salt)
+
+    conexion.query(`UPDATE public.colaborador SET colaborador_password='${passwordCryp}' WHERE id_colaborador= ${id}`, (err, res)=>{
+        if(err){
+            throw err
+        }else{
+            resp.json({
+                cryp : true
+            })
+        }
+    })
+}
+
+module.exports = {
+                    login,
+                    loginPut}

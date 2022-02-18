@@ -51,7 +51,9 @@ const origenDelete = (req, resp = response)=>{
 
     conexion.query(`DELETE FROM origen_fondos WHERE id_origen_fondos = ${id}`, (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                delete : false
+            })
         }else{
             resp.json({
                 delete: true

@@ -35,7 +35,9 @@ const parentPOST = (req, resp = response)=>{
 
     conexion.query( `INSERT INTO parentesco( parentesco ) VALUES('${parentesco}')` , (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                delete : false
+            })
         }else{
             resp.json({
                 insert : true

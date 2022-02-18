@@ -50,7 +50,9 @@ const filialDelete = (req, resp = response)=>{
 
     conexion.query(`DELETE FROM filial WHERE id_filial = ${id}`, (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                delete : false
+            })
         }else{
             resp.json({
                 delete: true

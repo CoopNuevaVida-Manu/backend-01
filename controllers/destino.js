@@ -51,7 +51,9 @@ const destDelete = (req, resp = response)=>{
 
     conexion.query(`DELETE FROM destino WHERE id_destino = ${id}`, (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                delete: false
+            })
         }else{
             resp.json({
                 delete: true

@@ -51,7 +51,9 @@ const transDelete = (req, resp = response)=>{
 
     conexion.query(`DELETE FROM transaccion WHERE id_transaccion = ${id}`, (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                delete : false
+            })
         }else{
             resp.json({
                 delete: true

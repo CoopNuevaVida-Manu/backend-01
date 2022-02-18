@@ -50,7 +50,9 @@ const depDelete =(req, resp = response)=>{
 
     conexion.query(`DELETE FROM departamento WHERE id_departamento = ${id}`, (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                delete: false
+            })
         }
         resp.json({
             delete: true

@@ -65,7 +65,9 @@ const colabDelete =(req, resp = response)=>{
 
     conexion.query(`DELETE FROM colaborador WHERE id_colaborador = ${id}`, (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                delete : false
+            })
         }
         resp.json({
             delete: true
