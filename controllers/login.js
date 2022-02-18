@@ -1,5 +1,7 @@
 const { response } = require('express');
 
+
+
 const conexion = require('../DB/db');
 
 
@@ -13,20 +15,34 @@ const login = (req, resp= response)=>{
         }else{
             if(res.rows.length == 0){
                 return resp.json({
-                    respuest: res.rows,
                     msg : 'Usuario no encontrado'
                 })
             }else{
-                const { colaborador_usuario, colaborador_password} = res.rows[0]
+                const { id_colaborador, colaborador_usuario, colaborador_password, id_estado} = res.rows[0]
                 
-                if(password === colaborador_password){
+                if(id_estado > 1 ){
                     return resp.json({
-                        msg: "Contraseña correcta"
-                    });
-                }else{
-                    return resp.json({
-                        msg: "Incorrecto"
+                        msg : "Este usuario actualmente se encuentra desactivado"
                     })
+                }else{
+                    if(password === colaborador_password){
+                        if(password.length < 50){
+                            return resp.json({
+                                msg: "Contraseña correcta",
+                                cryp: false
+                            });
+                        }else{
+                            return resp.json({
+                                msg: "Contraseña correcta",
+                                cryp: true
+                            })
+                        }
+                        
+                    }else{
+                        return resp.json({
+                            msg: "Contraseña incorrecta"
+                        })
+                    }
                 }
             }
         }

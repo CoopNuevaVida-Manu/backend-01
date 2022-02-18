@@ -40,7 +40,6 @@ class server{
         //transacciones
         this.app.use('/transaccion', require('../routes/transaccion'));
 
-
         
     }
 
