@@ -48,7 +48,9 @@ const colabPost = (req, resp = response) =>{
                                                                          '${colaborador_password}',
                                                                          ${id_estado});` , (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                insert: false
+            })
         }else{
             resp.json({
                 insert : true

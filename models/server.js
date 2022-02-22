@@ -16,6 +16,11 @@ class server{
         //login
         this.app.use('/login', require('../routes/login'));
 
+        //CRUD completos
+
+        //cheques a terceros
+        this.app.use('/cheques_terceros', require('../routes/cheques_terceros'));
+
         //colaboradores
         this.app.use('/colaborador', require('../routes/colaborador'));
 
@@ -40,6 +45,18 @@ class server{
         //transacciones
         this.app.use('/transaccion', require('../routes/transaccion'));
 
+
+        //GETS
+        
+
+        //afiliado estado
+        this.app.use('/afiliado_estado', require('../routes/afiliado_estado'));
+
+        //firma
+        this.app.use('/firma', require('../routes/firma'));
+
+        //colaborador estado
+        this.app.use('/colaborador_estado', require('../routes/colaborador_estado'))
         
     }
 
