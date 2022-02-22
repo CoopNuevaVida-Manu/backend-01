@@ -6,7 +6,9 @@ const conexion = require('../DB/db');
 const filialGet = (req, resp = response)=>{
     conexion.query(`SELECT * FROM filial`, (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
+            })
         }else{
             resp.json(res.rows);
         }
@@ -21,9 +23,12 @@ const filialGetID = (req, resp = response)=>{
 
     conexion.query(`SELECT * FROM filial WHERE id_filial = ${id}`, (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
+            })
+        }else{
+            resp.send(res.rows)
         }
-        resp.send(res.rows)
     })
 };
 
@@ -34,7 +39,9 @@ const filialPOST = (req, resp = response)=>{
 
     conexion.query( `INSERT INTO filial( filial ) VALUES('${filial}')` , (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                insert : false
+            })
         }else{
             resp.json({
                 insert : true
@@ -68,7 +75,9 @@ const filialPut = (req, resp = response) =>{
 
     conexion.query( `UPDATE filial SET filial='${filial}' WHERE id_filial = ${id}` , (err, res)=>{
         if(err){
-            throw err
+            resp.json({
+                put : false
+            })
         }else{
             resp.json({
                 put : true

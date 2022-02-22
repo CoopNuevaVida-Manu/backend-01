@@ -7,9 +7,11 @@ const conexion = require('../DB/db');
 const destGet = (req, resp = response)=>{
     conexion.query(`SELECT * FROM destino`, (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
+            })
         }else{
-            resp.json(res.rows);
+            return resp.json(res.rows);
         }
     })
 }
@@ -22,9 +24,12 @@ const destGetId = (req, resp = response)=>{
 
     conexion.query(`SELECT * FROM destino WHERE id_destino = ${id}`, (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
+            })
+        }else{
+            return resp.json(res.rows)
         }
-        resp.json(res.rows)
     })
 };
 
@@ -35,7 +40,9 @@ const destPOST = (req, resp = response)=>{
 
     conexion.query( `INSERT INTO destino( destino ) VALUES('${destino}')` , (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                insert : false
+            })
         }else{
             resp.json({
                 insert : true
@@ -69,7 +76,9 @@ const destPut = (req, resp = response) =>{
 
     conexion.query( `UPDATE destino SET destino='${destino}' WHERE id_destino = ${id}` , (err, res)=>{
         if(err){
-            throw err
+            resp.json({
+                put: false
+            })
         }else{
             resp.json({
                 put : true

@@ -67,7 +67,9 @@ const loginPut = (req, resp)=>{
 
     conexion.query(`UPDATE public.colaborador SET colaborador_password='${passwordCryp}' WHERE id_colaborador= ${id}`, (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
+            })
         }else{
             resp.json({
                 cryp : true

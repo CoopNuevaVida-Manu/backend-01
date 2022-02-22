@@ -7,9 +7,11 @@ const conexion = require('../DB/db');
 const transGet = (req, resp = response)=>{
     conexion.query(`SELECT * FROM transaccion`, (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
+            })
         }else{
-            resp.json(res.rows);
+            return resp.json(res.rows);
         }
     })
 }
@@ -22,9 +24,12 @@ const transGetID = (req, resp = response)=>{
 
     conexion.query(`SELECT * FROM transaccion WHERE id_transaccion = ${id}`, (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
+            })
+        }else{
+            return resp.json(res.rows)
         }
-        resp.send(res.rows)
     })
 };
 
@@ -35,9 +40,11 @@ const transPOST = (req, resp = response)=>{
 
     conexion.query( `INSERT INTO transaccion( transaccion ) VALUES('${transaccion}')` , (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                insert : false
+            })
         }else{
-            resp.json({
+            return resp.json({
                 insert : true
             });
         }
@@ -69,14 +76,17 @@ const transPut = (req, resp = response) =>{
 
     conexion.query( `UPDATE transaccion SET transaccion='${transaccion}' WHERE id_transaccion = ${id}` , (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                put : false
+            })
         }else{
-            resp.json({
+            return resp.json({
                 put : true
             });
         }
     } )
 }
+
 
 module.exports = {
     transGet,

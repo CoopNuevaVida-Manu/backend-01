@@ -18,9 +18,6 @@ class server{
 
         //CRUD completos
 
-        //cheques a terceros
-        this.app.use('/cheques_terceros', require('../routes/cheques_terceros'));
-
         //colaboradores
         this.app.use('/colaborador', require('../routes/colaborador'));
 
@@ -45,6 +42,17 @@ class server{
         //transacciones
         this.app.use('/transaccion', require('../routes/transaccion'));
 
+
+        //Tablas principales
+        
+        //cheques a terceros
+        this.app.use('/cheques_terceros', require('../routes/cheques_terceros'));
+
+        //diligencias no afiliados
+        this.app.use('/diligencias_no_afiliados', require('../routes/diligencia_no_afiliados'));
+
+        //firmas autorizadas a terceros
+        this.app.use('/firmas_autorizadas_terceros', require('../routes/firmas_autorizadas_terceros'))
 
         //GETS
         

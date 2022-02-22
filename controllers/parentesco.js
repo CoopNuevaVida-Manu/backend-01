@@ -7,7 +7,9 @@ const conexion = require('../DB/db');
 const parentGet = (req, resp = response)=>{
     conexion.query(`SELECT * FROM parentesco`, (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
+            })
         }else{
             resp.json(res.rows);
         }
@@ -22,9 +24,12 @@ const parentGetID = (req, resp = response)=>{
 
     conexion.query(`SELECT * FROM parentesco WHERE id_parentesco = ${id}`, (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
+            })
+        }else{
+            return resp.json(res.rows)
         }
-        resp.send(res.rows)
     })
 };
 
@@ -36,10 +41,10 @@ const parentPOST = (req, resp = response)=>{
     conexion.query( `INSERT INTO parentesco( parentesco ) VALUES('${parentesco}')` , (err, res)=>{
         if(err){
             return resp.json({
-                delete : false
+                insert : false
             })
         }else{
-            resp.json({
+            return resp.json({
                 insert : true
             });
         }
@@ -53,9 +58,11 @@ const parentDelete = (req, resp = response)=>{
 
     conexion.query(`DELETE FROM parentesco WHERE id_parentesco = ${id}`, (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                delete : false
+            })
         }else{
-            resp.json({
+            return resp.json({
                 delete: true
             })
         }
@@ -69,9 +76,11 @@ const parentPut = (req, resp = response) =>{
 
     conexion.query( `UPDATE parentesco SET parentesco='${parentesco}' WHERE id_parentesco = ${id}` , (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                put : false
+            })
         }else{
-            resp.json({
+            return resp.json({
                 put : true
             });
         }

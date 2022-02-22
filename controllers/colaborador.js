@@ -7,7 +7,9 @@ const conexion = require('../DB/db');
 const colabGet = (req, resp = response)=>{
     conexion.query('select * from colaborador', (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
+            })
         }
         resp.json(res.rows)
     })
@@ -20,7 +22,9 @@ const colabGetId =(req, resp = response)=>{
 
     conexion.query(`select * from colaborador where id_colaborador = ${id}`, (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
+            })
         }
         resp.json(res.rows)
     })
@@ -96,7 +100,9 @@ const colabPut = (req, resp = response) =>{
                                             id_estado=${id_estado}
                                              WHERE id_colaborador = ${id}` , (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                put: false
+            })
         }else{
             resp.json({
                 put : true

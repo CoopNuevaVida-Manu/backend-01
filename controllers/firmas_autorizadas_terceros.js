@@ -2,8 +2,9 @@ const { response } = require('express');
 
 const conexion = require('../DB/db');
 
-const colab_estadoGET = (req, resp = response)=>{
-    conexion.query(`SELECT * FROM colaborador_estado`, (err, res)=>{
+const firmas_tercerosGet = (req, resp = response) =>{
+    
+    conexion.query(`SELECT * FROM public.firmas_autorizadas_terceros ORDER BY apertura_actualizacion DESC `, (err, res)=>{
         if(err){
             return resp.json({
                 msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
@@ -14,4 +15,7 @@ const colab_estadoGET = (req, resp = response)=>{
     })
 }
 
-module.exports = colab_estadoGET;
+
+module.exports = {
+    firmas_tercerosGet
+}

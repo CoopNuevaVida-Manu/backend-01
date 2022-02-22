@@ -7,7 +7,9 @@ const conexion = require('../DB/db');
 const depGet = (req, resp = response)=>{
     conexion.query('select * from departamento', (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
+            })
         }
         resp.json(res.rows)
     })
@@ -20,7 +22,9 @@ const depGetId =(req, resp = response)=>{
 
     conexion.query(`select * from departamento where id_departamento = ${id}`, (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
+            })
         }
         resp.json(res.rows)
     })
@@ -33,7 +37,9 @@ const depPost = (req, resp = response) =>{
 
     conexion.query( `INSERT INTO departamento( departamento ) VALUES('${departamento}')` , (err, res)=>{
         if(err){
-            throw err
+            resp.json({
+                insert : false
+            })
         }else{
             resp.json({
                 insert : true
@@ -67,7 +73,9 @@ const depPut = (req, resp = response) =>{
 
     conexion.query( `UPDATE departamento SET departamento='${departamento}' WHERE id_departamento = ${id}` , (err, res)=>{
         if(err){
-            throw err
+            resp.json({
+                put: false
+            })
         }else{
             resp.json({
                 put : true

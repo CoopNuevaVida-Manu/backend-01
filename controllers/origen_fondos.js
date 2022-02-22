@@ -7,9 +7,11 @@ const conexion = require('../DB/db');
 const origenGet = (req, resp = response)=>{
     conexion.query(`SELECT * FROM origen_fondos`, (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
+            })
         }else{
-            resp.json(res.rows);
+            return resp.json(res.rows);
         }
     })
 }
@@ -22,9 +24,12 @@ const origenGetID = (req, resp = response)=>{
 
     conexion.query(`SELECT * FROM origen_fondos WHERE id_origen_fondos = ${id}`, (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
+            })
+        }else{
+            return resp.json(res.rows)
         }
-        resp.send(res.rows)
     })
 };
 
@@ -35,9 +40,11 @@ const origenPOST = (req, resp = response)=>{
 
     conexion.query( `INSERT INTO origen_fondos( origen_fondos ) VALUES('${origen_fondos}')` , (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                insert: false
+            })
         }else{
-            resp.json({
+            return resp.json({
                 insert : true
             });
         }
@@ -55,7 +62,7 @@ const origenDelete = (req, resp = response)=>{
                 delete : false
             })
         }else{
-            resp.json({
+            return resp.json({
                 delete: true
             })
         }
@@ -69,9 +76,11 @@ const origenPut = (req, resp = response) =>{
 
     conexion.query( `UPDATE origen_fondos SET origen_fondos='${origen_fondos}' WHERE id_origen_fondos = ${id}` , (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                put : false
+            })
         }else{
-            resp.json({
+            return resp.json({
                 put : true
             });
         }

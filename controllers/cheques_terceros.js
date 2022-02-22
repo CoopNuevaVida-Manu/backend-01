@@ -5,7 +5,9 @@ const conexion = require('../DB/db');
 const chequesTerGet = (req,resp = response) =>{
     conexion.query(`SELECT * FROM public.cheques_terceros ORDER BY fecha_emision DESC `, (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
+            })
         }else{
             return resp.json(res.rows)
         }
@@ -18,7 +20,9 @@ const chequesTerGetId = (req,resp = response) =>{
     
     conexion.query(`SELECT * FROM cheques_terceros where id_cheque_tercero = ${id}`, (err, res)=>{
         if(err){
-            throw err
+            return resp.json({
+                msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
+            })
         }else{
             return resp.json(res.rows)
         }
@@ -65,11 +69,9 @@ const chequesTerPost = (req, resp = response)=>{
                                         '${observaciones}', 
                                         ${id_afililiado_estado});`, (err,res)=>{
         if(err){
-            throw err
-            // return resp.json({
-            //     insert : false,
-            //     msg : err
-            // })
+            return resp.json({
+                insert : false
+            })
         }else{
             return resp.json({
                 insert : true
