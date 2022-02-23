@@ -18,7 +18,7 @@ const login = (req, resp= response)=>{
                     msg : 'Usuario no encontrado'
                 })
             }else{
-                const { id_colaborador, colaborador_usuario, colaborador_password, id_estado} = res.rows[0]
+                const { id_colaborador, id_departamento, colaborador_password, id_estado} = res.rows[0]
                 
                 if(id_estado > 1 ){
                     return resp.json({
@@ -29,7 +29,9 @@ const login = (req, resp= response)=>{
                         if(bcryp.compareSync(password, colaborador_password)){
                             return resp.json({
                                 msg: "Contraseña correcta",
-                                cryp: true
+                                cryp: true,
+                                id: id_colaborador,
+                                dep : id_departamento
 
                             })
                         }else{
@@ -42,7 +44,9 @@ const login = (req, resp= response)=>{
                         if(password === colaborador_password){
                             return resp.json({
                                 msg: "Contraseña correcta",
-                                cryp: false
+                                cryp: false,
+                                id: id_colaborador,
+                                dep : id_departamento
                             });
                         }else{
                             return resp.json({

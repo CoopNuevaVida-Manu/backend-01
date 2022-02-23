@@ -42,6 +42,9 @@ class server{
         //transacciones
         this.app.use('/transaccion', require('../routes/transaccion'));
 
+        //no afiliados
+        this.app.use('/no_afiliado', require('../routes/no_afiliado'));
+
 
         //Tablas principales
         
@@ -53,6 +56,9 @@ class server{
 
         //firmas autorizadas a terceros
         this.app.use('/firmas_autorizadas_terceros', require('../routes/firmas_autorizadas_terceros'))
+
+        //transacciones sin comprobantes
+        this.app.use('/transacciones_sin_comprobantes' , require('../routes/transacciones_sin_comprobantes'));
 
         //GETS
         
@@ -66,6 +72,7 @@ class server{
         //colaborador estado
         this.app.use('/colaborador_estado', require('../routes/colaborador_estado'))
         
+
     }
 
     middlewares(){
