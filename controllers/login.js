@@ -22,13 +22,18 @@ const login = (req, resp= response)=>{
                 
                 if(id_estado > 1 ){
                     return resp.json({
-                        msg : "Este usuario actualmente se encuentra desactivado"
+                        msg : "Este usuario actualmente se encuentra desactivado",
+                        login: false,
+                        cryp: false,
+                        id: 0,
+                        dep : 0
                     })
                 }else{
                     if(colaborador_password.length > 50){
                         if(bcryp.compareSync(password, colaborador_password)){
                             return resp.json({
                                 msg: "Contraseña correcta",
+                                login: true,
                                 cryp: true,
                                 id: id_colaborador,
                                 dep : id_departamento
@@ -37,13 +42,17 @@ const login = (req, resp= response)=>{
                         }else{
                             return resp.json({
                                 msg: "Contraseña incorrecta",
-                                cryp: true
+                                login: false,
+                                cryp: false,
+                                id: 0,
+                                dep : 0
                             })
                         }
                     }else{
                         if(password === colaborador_password){
                             return resp.json({
                                 msg: "Contraseña correcta",
+                                login: true,
                                 cryp: false,
                                 id: id_colaborador,
                                 dep : id_departamento
@@ -51,7 +60,10 @@ const login = (req, resp= response)=>{
                         }else{
                             return resp.json({
                                 msg: "Contraseña incorrecta",
-                                cryp: false
+                                login: false,
+                                cryp: false,
+                                id: 0,
+                                dep : 0
                             })
                         }                          
                     }   
