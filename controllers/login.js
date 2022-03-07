@@ -84,10 +84,12 @@ const loginPut = (req, resp)=>{
     conexion.query(`UPDATE public.colaborador SET colaborador_password='${passwordCryp}' WHERE id_colaborador= ${id}`, (err, res)=>{
         if(err){
             return resp.json({
-                msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
+                msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas",
+                cryp: false
             })
         }else{
             resp.json({
+                msg: "Actualización de contraseña exitoso",
                 cryp : true
             })
         }
