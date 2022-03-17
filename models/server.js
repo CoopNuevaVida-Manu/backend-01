@@ -22,6 +22,9 @@ class server{
         //colaboradores
         this.app.use('/colaborador', require('../routes/colaborador'));
 
+        //colaboradores_Departamento o roles
+        this.app.use('/colaborador_departamento', require('../routes/colaboradores_Departamento'));
+
         //departamento
         this.app.use('/departamento' , require('../routes/departamento'));
         
@@ -38,7 +41,7 @@ class server{
         this.app.use('/parentesco', require('../routes/parentesco'));
 
         //razon de operacion
-        this.app.use('/razon_parentesco', require('../routes/razon_operacion'));
+        this.app.use('/razon_operacion', require('../routes/razon_operacion'));
 
         //transacciones
         this.app.use('/transaccion', require('../routes/transaccion'));

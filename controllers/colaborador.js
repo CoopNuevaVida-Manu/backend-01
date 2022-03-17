@@ -35,19 +35,16 @@ const colabPost = (req, resp = response) =>{
     
     const { colaborador_nombre,
             colaborador_usuario,
-            id_departamento,
             id_oficiona,
             colaborador_password,
             id_estado} = req.body;
 
     conexion.query( `INSERT INTO public.colaborador(colaborador_nombre,
                                         colaborador_usuario, 
-                                        id_departamento,
                                         id_oficiona, 
                                         colaborador_password,
                                         id_estado) VALUES ( '${colaborador_nombre}', 
                                                                         '${colaborador_usuario}',
-                                                                         ${id_departamento}, 
                                                                          ${id_oficiona}, 
                                                                          '${colaborador_password}',
                                                                          ${id_estado});` , (err, res)=>{
@@ -87,14 +84,12 @@ const colabPut = (req, resp = response) =>{
     const { id, 
             colaborador_nombre,
             colaborador_usuario,
-            id_departamento,
             id_oficiona,
             colaborador_password,
             id_estado } = req.body;
 
     conexion.query( `UPDATE colaborador SET colaborador_nombre='${colaborador_nombre}',
                                             colaborador_usuario='${colaborador_usuario}',
-                                            id_departamento= ${id_departamento},
                                             id_oficiona=${id_oficiona},
                                             colaborador_password='${colaborador_password}',
                                             id_estado=${id_estado}
