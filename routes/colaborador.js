@@ -1,15 +1,19 @@
 const { Router } = require('express');
-const { colabGet, 
+const { colabGetActivo, 
         colabGetId, 
         colabPost, 
         colabDelete, 
-        colabPut } = require('../controllers/colaborador');
+        colabPut, 
+        colabGetInactivo,
+        colabPutPass} = require('../controllers/colaborador');
 
 
 const router = Router();
 
 //todos los departamentos
-router.get('/', colabGet);
+router.get('/', colabGetActivo);
+
+router.get('/inactivo', colabGetInactivo);
 
 //un solo departamento
 router.get('/:id', colabGetId);
@@ -22,5 +26,7 @@ router.delete('/:id', colabDelete);
 
 //actualizar
 router.put('/', colabPut);
+
+router.put('/Pass', colabPutPass);
 
 module.exports = router;
