@@ -5,7 +5,8 @@ const { colabGetActivo,
         colabDelete, 
         colabPut, 
         colabGetInactivo,
-        colabPutPass} = require('../controllers/colaborador');
+        colabPutPass,
+        colabEnd} = require('../controllers/colaborador');
 
 
 const router = Router();
@@ -14,6 +15,8 @@ const router = Router();
 router.get('/', colabGetActivo);
 
 router.get('/inactivo', colabGetInactivo);
+
+router.get('/colabEnd', colabEnd);
 
 //un solo departamento
 router.get('/:id', colabGetId);

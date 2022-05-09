@@ -26,6 +26,18 @@ const colabGetInactivo = (req, resp = response)=>{
     })
 }
 
+const colabEnd = (req, resp = response)=>{
+    conexion.query('select id_colaborador, colaborador_nombre, colaborador_usuario, id_oficiona, id_estado from colaborador order by id_colaborador DESC limit 1;', (err, res)=>{
+        if(err){
+            return resp.json({
+                msg: "Error al capturar el ID del nuevo colaborador"
+            })
+        }
+        resp.json(res.rows)
+    })
+}
+
+
 //GetId
 const colabGetId =(req, resp = response)=>{
 
@@ -145,6 +157,7 @@ const colabPutPass = (req, resp = response) =>{
 module.exports = {
     colabGetActivo,
     colabGetInactivo,
+    colabEnd,
     colabGetId,
     colabPost,
     colabPutPass,
