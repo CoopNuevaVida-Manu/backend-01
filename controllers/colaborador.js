@@ -73,10 +73,12 @@ const colabPost = (req, resp = response) =>{
                                                                          ${id_estado});` , (err, res)=>{
         if(err){
             return resp.json({
+                meg: "No se pudo crear el nuevo colaborador",
                 insert: false
             })
         }else{
             resp.json({
+                meg: "Se ha creado un nuevo colaborador exitosamente",
                 insert : true
             });
         }
