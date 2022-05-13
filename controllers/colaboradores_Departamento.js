@@ -48,7 +48,7 @@ const deleteColabDep = (req, resp = response)=>{
     const { id_colaborador,
             id_departamento} = req.body;
 
-    conexion.query(`DELETE FROM public.colaborador_departamento WHERE id_colaborador = ${id_colaborador} and id_departamento = ${id_departamento}`, (err, res)=>{
+    conexion.query(`DELETE FROM public.colaborador_departamento WHERE id_colaborador = ${id_colaborador}`, (err, res)=>{
         if(err){
             return resp.json({
                 delete: false
