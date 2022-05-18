@@ -19,7 +19,7 @@ const no_afiliadoGetID = (req, resp = response) =>{
 
     const {id} = req.params;
 
-    conexion.query(`SELECT * FROM no_afiliado WHERE id_no_afiliado = ${id}`, (err,res)=>{
+    conexion.query(`SELECT * FROM no_afiliado WHERE identidad = '${id}'`, (err,res)=>{
         if(err){
             return resp.json({
                 msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
