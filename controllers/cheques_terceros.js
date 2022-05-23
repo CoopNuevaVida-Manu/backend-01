@@ -61,7 +61,7 @@ const chequesTerPost = (req, resp = response)=>{
                                         ${n_cheque}, 
                                         '${fecha_emision}', 
                                         ${id_colaborador}, 
-                                        ${id_persona}, 
+                                        '${id_persona}', 
                                         ${id_parentesco}, 
                                         ${monto}, 
                                         ${id_origen_fondos}, 
