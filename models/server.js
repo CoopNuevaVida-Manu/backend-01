@@ -75,6 +75,9 @@ class server{
 
         //colaborador estado
         this.app.use('/colaborador_estado', require('../routes/colaborador_estado'))
+
+        //Prueba con Oracledb
+        this.app.use('/pruebaOracledb', require('../routes/prueba'));
         
 
     }
