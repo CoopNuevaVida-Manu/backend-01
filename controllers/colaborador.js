@@ -2,6 +2,17 @@ const { response } = require('express');
 
 const conexion = require('../DB/db');
 
+const allColab = (req, resp = response)=>{
+    conexion.query('select id_colaborador, colaborador_nombre, colaborador_usuario, id_oficiona, id_estado from colaborador order by colaborador_nombre ASC', (err, res)=>{
+        if(err){
+            return resp.json({
+                msg: "Error al cargar los u¿colaboradores"
+            })
+        }
+        resp.json(res.rows)
+    })
+}
+
 //GET
 const colabGetActivo = (req, resp = response)=>{
     conexion.query('select id_colaborador, colaborador_nombre, colaborador_usuario, id_oficiona, id_estado from colaborador WHERE id_estado = 1;', (err, res)=>{
@@ -157,6 +168,7 @@ const colabPutPass = (req, resp = response) =>{
 }
 
 module.exports = {
+    allColab,
     colabGetActivo,
     colabGetInactivo,
     colabEnd,
