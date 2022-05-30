@@ -69,11 +69,11 @@ const t_s_cPost = (req, resp = response) =>{
                                     '${observaciones}') `, (err, res)=>{
         if(err){
             return resp.json({
-                post: false
+                insert: false
             })
         }else{
             return resp.json({
-                post: true
+                insert: true
             })
         }
     })
