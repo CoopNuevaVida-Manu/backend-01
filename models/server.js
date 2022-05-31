@@ -77,7 +77,11 @@ class server{
         this.app.use('/colaborador_estado', require('../routes/colaborador_estado'))
 
         //Prueba con Oracledb
+        //Borrar mas adelante
         this.app.use('/pruebaOracledb', require('../routes/prueba'));
+
+        //Afiliados
+        this.app.use('/Afiliado', require('../routes/Afiliados'));
         
 
     }

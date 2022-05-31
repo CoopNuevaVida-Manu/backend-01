@@ -1,5 +1,5 @@
 module.exports = {
     user          : "NvidaApp",
     password      : "NVIDAAPP",
-    connectString : "nvidaop"
+    connectString : "PRUEBA"
 }
