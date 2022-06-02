@@ -82,6 +82,11 @@ class server{
 
         //Afiliados
         this.app.use('/Afiliado', require('../routes/Afiliados'));
+
+
+
+        //tablas Cumplimiento
+        this.app.use('/Cumplimiento', require('../routes/cumplimiento'));
         
 
     }

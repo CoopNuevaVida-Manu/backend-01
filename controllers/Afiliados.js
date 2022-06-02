@@ -42,6 +42,22 @@ const getAfiliadoID = (req, resp = response)=>{
         run();
 }
 
+const AfilidoIDPostgres = (req,resp = response) =>{
+
+    const { id } = req.params;
+    
+    conexion.query(`SELECT "OUTAFF", "OUTAFF_IDCIA", "OUTAFF_IDSUC", "OUTAFF_CLI-NOCTA", "OUTAFF_NAME", "OUTAFF_ID", "OUTAFF_ACCOUNTTYPE", "OUTAFF_EMPLOYEE"
+	FROM public."Afiliados" WHERE "OUTAFF_ID" = '${id}'`, (err, res)=>{
+        if(err){
+            return resp.json({
+                msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
+            })
+        }else{
+            return resp.json(res.rows)
+        }
+    })
+};
+
 const getAfiliadoCuentas = (req, resp = response)=>{
     
     const { idSuc, idCli } = req.params;
@@ -115,19 +131,44 @@ const getAfiliadoCli = (req, resp = response)=>{
 }
 
 const postAfiliado = (req, resp = response) =>{
-    const { id } = req.params;
-    conexion.query(`SELECT * FROM afiliado_estado WHERE id_afiliado_estado = ${id}`, (err, res)=>{
+    const {OUTAFF_IDCIA,       
+           OUTAFF_IDSUC,       
+           OUTAFF_CLI_NOCTA,   
+           OUTAFF_NAME,        
+           OUTAFF_ID,          
+           OUTAFF_ACCOUNTTYPE, 
+           OUTAFF_EMPLOYEE} = req.body;
+    conexion.query(`INSERT INTO public."Afiliados"("OUTAFF_IDCIA", 
+                                                   "OUTAFF_IDSUC", 
+                                                   "OUTAFF_CLI-NOCTA", 
+                                                   "OUTAFF_NAME", 
+                                                   "OUTAFF_ID", 
+                                                   "OUTAFF_ACCOUNTTYPE", 
+                                                   "OUTAFF_EMPLOYEE")
+                                                        VALUES ('${OUTAFF_IDCIA}',       
+                                                                '${OUTAFF_IDSUC}',       
+                                                                '${OUTAFF_CLI_NOCTA}',   
+                                                                '${OUTAFF_NAME}',        
+                                                                '${OUTAFF_ID}',          
+                                                                '${OUTAFF_ACCOUNTTYPE}', 
+                                                                '${OUTAFF_EMPLOYEE}');`, (err, res)=>{
         if(err){
             return resp.json({
-                msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
+                insert : false
             })
         }else{
-            resp.json(res.rows);
+            return resp.json({
+                insert : true
+            })
         }
     })
 }
 
 
 module.exports= {getAfiliadoID,
+                 AfilidoIDPostgres,
                  getAfiliadoCuentas,
-                 getAfiliadoCli}
+                 getAfiliadoCli,
+                 postAfiliado}
+
+                 
