@@ -15,7 +15,7 @@ const allColab = (req, resp = response)=>{
 
 //GET
 const colabGetActivo = (req, resp = response)=>{
-    conexion.query('select id_colaborador, colaborador_nombre, colaborador_usuario, id_oficiona, id_estado from colaborador WHERE id_estado = 1;', (err, res)=>{
+    conexion.query('select id_colaborador, colaborador_nombre, colaborador_usuario, id_oficiona, id_estado from colaborador WHERE id_estado = 1 order by colaborador_nombre ASC;', (err, res)=>{
         if(err){
             return resp.json({
                 msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
@@ -27,7 +27,7 @@ const colabGetActivo = (req, resp = response)=>{
 
 //GET
 const colabGetInactivo = (req, resp = response)=>{
-    conexion.query('select id_colaborador, colaborador_nombre, colaborador_usuario, id_oficiona, id_estado from colaborador WHERE id_estado = 2;', (err, res)=>{
+    conexion.query('select id_colaborador, colaborador_nombre, colaborador_usuario, id_oficiona, id_estado from colaborador WHERE id_estado = 2 order by colaborador_nombre ASC;', (err, res)=>{
         if(err){
             return resp.json({
                 msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"

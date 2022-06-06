@@ -87,5 +87,115 @@ const getDiligenciaNoAfiliados = (req, resp = response)=>{
     })
 }
 
+const getChequesTerceros = (req, resp = response)=>{
+    conexion.query(`SELECT ct.id_cheque_tercero, 
+                        ct.codigo_de_afiliado, 
+                        f.filial, 
+                        ct.n_cheque, 
+                        ct.fecha_emision, 
+                        cb.colaborador_nombre,
+                        ct.id_persona,
+                        af."OUTAFF_NAME" AS name,
+                        pt.parentesco,
+                        ct.monto, 
+                        o.origen_fondos,
+                        d.destino,
+                        ct.observaciones, 
+                        ae.afiliado_estado
+                    FROM public.cheques_terceros AS ct
+                    INNER JOIN filial AS f ON f.id_filial = ct.id_filial
+                    INNER JOIN colaborador AS cb ON cb.id_colaborador = ct.id_colaborador
+                    INNER JOIN parentesco AS pt ON pt.id_parentesco = ct.id_parentesco
+                    INNER JOIN origen_fondos AS o ON o.id_origen_fondos = ct.id_origen_fondos
+                    INNER JOIN destino AS d ON d.id_destino = ct.id_destino
+                    INNER JOIN afiliado_estado AS ae ON ae.id_afiliado_estado = ct.id_afililiado_estado
+                    INNER JOIN "Afiliados" AS af ON af."OUTAFF_ID" = ct.id_persona
+                    
+                    UNION ALL
+                    
+                    SELECT ct.id_cheque_tercero, 
+                        ct.codigo_de_afiliado, 
+                        f.filial, 
+                        ct.n_cheque, 
+                        ct.fecha_emision, 
+                        cb.colaborador_nombre,
+                        ct.id_persona,
+                        concat(na.nombre, ' ', na.apellido) AS name,
+                        pt.parentesco,
+                        ct.monto, 
+                        o.origen_fondos,
+                        d.destino,
+                        ct.observaciones, 
+                        ae.afiliado_estado
+                    FROM public.cheques_terceros AS ct
+                    INNER JOIN filial AS f ON f.id_filial = ct.id_filial
+                    INNER JOIN colaborador AS cb ON cb.id_colaborador = ct.id_colaborador
+                    INNER JOIN parentesco AS pt ON pt.id_parentesco = ct.id_parentesco
+                    INNER JOIN origen_fondos AS o ON o.id_origen_fondos = ct.id_origen_fondos
+                    INNER JOIN destino AS d ON d.id_destino = ct.id_destino
+                    INNER JOIN afiliado_estado AS ae ON ae.id_afiliado_estado = ct.id_afililiado_estado
+                    INNER JOIN no_afiliado AS na ON na.identidad = ct.id_persona`, (err, res)=>{
+        if(err){
+            return resp.json({
+                msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
+            })
+        }
+        resp.json(res.rows)
+    })
+}
+
+const getFirmasTerceros = (req, resp = response)=>{
+    conexion.query(`SELECT ft.id_firma_autorizada, 
+                        af."OUTAFF_NAME" AS name,
+                        ft.id_cliente, 
+                        ae.afiliado_estado,
+                        pt.parentesco,
+                        frm.firma,
+                        ft.codigo_afiliado, 
+                        ft.cuenta_afiliado, 
+                        f.filial, 
+                        ft.apertura_actualizacion, 
+                        cb.colaborador_nombre,
+                        ft.observaciones
+                    FROM public.firmas_autorizadas_terceros AS ft 
+                    INNER JOIN afiliado_estado AS ae ON ae.id_afiliado_estado = ft.id_afiliado_estado
+                    INNER JOIN parentesco AS pt ON pt.id_parentesco = ft.id_parentesco
+                    INNER JOIN firma AS frm ON frm.id_firma = ft.id_firma
+                    INNER JOIN filial AS f ON f.id_filial = ft.id_filial_pertenece
+                    INNER JOIN colaborador AS cb ON cb.id_colaborador = ft.id_colaborador
+                    INNER JOIN "Afiliados" AS af ON af."OUTAFF_ID" = ft.id_cliente
+                    
+                    UNION ALL
+                    
+                    SELECT ft.id_firma_autorizada, 
+                        concat(na.nombre, ' ', na.apellido) AS name,
+                        ft.id_cliente, 
+                        ae.afiliado_estado,
+                        pt.parentesco,
+                        frm.firma,
+                        ft.codigo_afiliado, 
+                        ft.cuenta_afiliado, 
+                        f.filial, 
+                        ft.apertura_actualizacion, 
+                        cb.colaborador_nombre,
+                        ft.observaciones
+                    FROM public.firmas_autorizadas_terceros AS ft 
+                    INNER JOIN afiliado_estado AS ae ON ae.id_afiliado_estado = ft.id_afiliado_estado
+                    INNER JOIN parentesco AS pt ON pt.id_parentesco = ft.id_parentesco
+                    INNER JOIN firma AS frm ON frm.id_firma = ft.id_firma
+                    INNER JOIN filial AS f ON f.id_filial = ft.id_filial_pertenece
+                    INNER JOIN colaborador AS cb ON cb.id_colaborador = ft.id_colaborador
+                    INNER JOIN no_afiliado AS na ON na.identidad = ft.id_cliente`, (err, res)=>{
+        if(err){
+            return resp.json({
+                msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
+            })
+        }
+        resp.json(res.rows)
+    })
+}
+
 module.exports = { getTransaccionesSinComprobante,
-                   getDiligenciaNoAfiliados}
+                   getDiligenciaNoAfiliados,
+                   getChequesTerceros,
+                   getFirmasTerceros}
