@@ -87,6 +87,9 @@ class server{
 
         //tablas Cumplimiento
         this.app.use('/Cumplimiento', require('../routes/cumplimiento'));
+
+        //Exportar tablas a Exel 
+        this.app.use('/Export', require('../routes/Excel-export'));
         
 
     }
