@@ -63,7 +63,11 @@ const exportTransaccionesSinComprobante = (req, resp = response)=>{
             // Binary string
             XLSX.write(workBook, { bookType: "xlsx", type: "binary" })
         
-            XLSX.writeFile(workBook, "studentsData.xlsx")
+            XLSX.writeFile(workBook, "RTE.xlsx")
+
+            resp.download('./RTE.xlsx')
+
+            
         
         }
         convertJsonToExcel()
