@@ -1,5 +1,8 @@
 const { Router } = require('express');
-const { exporDiligenciaNoAfiliados, exporChequesTerceros, exportTransaccionesSinComprobante, exporFirmasTerceros } = require('../controllers/Excel-export');
+const { exporDiligenciaNoAfiliados, 
+        exporChequesTerceros, 
+        exportTransaccionesSinComprobante, 
+        exporFirmasTerceros } = require('../controllers/Excel-export');
 
 const router = Router();
 
