@@ -90,6 +90,9 @@ class server{
 
         //Exportar tablas a Exel 
         this.app.use('/Export', require('../routes/Excel-export'));
+
+        //Exportar tablas a Excel con parametros 
+        this.app.use('/ExportParams', require('../routes/Excel-export-parameters'));
         
 
     }

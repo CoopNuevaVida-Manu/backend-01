@@ -2,7 +2,10 @@ const { response } = require('express');
 const conexion = require('../DB/db');
 const XLSX = require('xlsx')
 
-const exportTransaccionesSinComprobante = (req, resp = response)=>{
+const exportTransaccionesSinComprobante_P = (req, resp = response)=>{
+
+    const { fechai, fechaf } = req.params;
+    
     conexion.query(`SELECT  codigo_afiliado as "Codigo de Afiliado", 
                             cuenta_afectada as "Cuenta afectada", 
                             filialac as "Filial Pertenece", 
@@ -16,6 +19,7 @@ const exportTransaccionesSinComprobante = (req, resp = response)=>{
                             colaborador_usuario as "Colaborador Usuario", 
                             observaciones as "Observaciones"
                     FROM public.rte
+                    WHERE fecha_operacion >= '${fechai}' AND fecha_operacion <= '${fechaf}'
                     ORDER BY fecha_operacion DESC`, (err, res)=>{
         if(err){
             return resp.json({
@@ -34,16 +38,19 @@ const exportTransaccionesSinComprobante = (req, resp = response)=>{
             // Binary string
             XLSX.write(workBook, { bookType: "xlsx", type: "binary" })
         
-            XLSX.writeFile(workBook, "RTE.xlsx")
+            XLSX.writeFile(workBook, "RTE_P.xlsx")
 
-            resp.download('./RTE.xlsx')    
+            resp.download('./RTE_P.xlsx')    
         
         }
         convertJsonToExcel()
     })
 }
 
-const exporDiligenciaNoAfiliados = (req, resp = response)=>{
+const exporDiligenciaNoAfiliados_P = (req, resp = response)=>{
+    
+    const { fechai, fechaf } = req.params;
+
     conexion.query(`SELECT  UPPER(concat(na.nombre, ' ', na.apellido)) AS "Nombre",
                             DD.id_no_afiliado AS "Identidad no afiliado",
                             ps.parentesco AS "Parentesco",
@@ -65,6 +72,7 @@ const exporDiligenciaNoAfiliados = (req, resp = response)=>{
                     INNER JOIN transaccion AS ts ON ts.id_transaccion = DD.id_transaccion
                     INNER JOIN colaborador AS cb ON cb.id_colaborador = DD.id_cajero_operacion
                     INNER JOIN no_afiliado AS na ON na.identidad = DD.id_no_afiliado
+                    WHERE DD.fecha_operacion >= '${fechai}' AND DD.fecha_operacion <= '${fechaf}'
                     ORDER BY DD.fecha_operacion DESC`, (err, res)=>{
         if(err){
             return resp.json({
@@ -83,16 +91,19 @@ const exporDiligenciaNoAfiliados = (req, resp = response)=>{
             // Binary string
             XLSX.write(workBook, { bookType: "xlsx", type: "binary" })
         
-            XLSX.writeFile(workBook, "Diligencia_No_Afiliados.xlsx")
+            XLSX.writeFile(workBook, "Diligencia_No_Afiliados_P.xlsx")
 
-            resp.download('./Diligencia_No_Afiliados.xlsx')    
+            resp.download('./Diligencia_No_Afiliados_P.xlsx')    
         
         }
         convertJsonToExcel()
     })
 }
 
-const exporChequesTerceros = (req, resp = response)=>{
+const exporChequesTerceros_P = (req, resp = response)=>{
+
+    const { fechai, fechaf } = req.params;
+
     conexion.query(`SELECT  codigo_de_afiliado AS "Codigo de Afiliado", 
                         filial AS "Filial",
                         n_cheque AS "N° de Cheque", 
@@ -106,7 +117,9 @@ const exporChequesTerceros = (req, resp = response)=>{
                         destino AS "Destino",
                         UPPER(colaborador_nombre) AS "Nombre Colaborador",
                         observaciones AS "Observaciones"
-                    FROM public.ct;`, (err, res)=>{
+                    FROM public.ct
+                    WHERE fecha_emision >= '${fechai}' AND fecha_emision <= '${fechaf}'
+                    ORDER BY fecha_emision DESC `, (err, res)=>{
         if(err){
             return resp.json({
                 msg: "Ha ocurrido un error, por favor contacte al departamente de Ingenieria en sistemas"
@@ -124,16 +137,19 @@ const exporChequesTerceros = (req, resp = response)=>{
             // Binary string
             XLSX.write(workBook, { bookType: "xlsx", type: "binary" })
         
-            XLSX.writeFile(workBook, "Cheques_Terceros.xlsx")
+            XLSX.writeFile(workBook, "Cheques_Terceros_P.xlsx")
 
-            resp.download('./Cheques_Terceros.xlsx')    
+            resp.download('./Cheques_Terceros_P.xlsx')    
         
         }
         convertJsonToExcel()
     })
 }
 
-const exporFirmasTerceros = (req, resp = response)=>{
+const exporFirmasTerceros_P = (req, resp = response)=>{
+    
+    const { fechai, fechaf } = req.params;
+
     conexion.query(`SELECT  UPPER(name) AS "Nombre",
                         id_cliente AS "Identidad",
                         afiliado_estado AS "Estado",
@@ -146,6 +162,7 @@ const exporFirmasTerceros = (req, resp = response)=>{
                         UPPER(colaborador_nombre) AS "Colaborador Nombre",
                         observaciones AS "Observaciones"
                     FROM public.ft
+                    WHERE apertura_actualizacion >= '${fechai}' AND apertura_actualizacion <= '${fechaf}'
                     ORDER BY apertura_actualizacion DESC`, (err, res)=>{
         if(err){
             return resp.json({
@@ -164,16 +181,16 @@ const exporFirmasTerceros = (req, resp = response)=>{
             // Binary string
             XLSX.write(workBook, { bookType: "xlsx", type: "binary" })
         
-            XLSX.writeFile(workBook, "Firmas_Terceros.xlsx")
+            XLSX.writeFile(workBook, "Firmas_Terceros_P.xlsx")
 
-            resp.download('./Firmas_Terceros.xlsx')    
+            resp.download('./Firmas_Terceros_P.xlsx')    
         
         }
         convertJsonToExcel()
     })
 }
 
-module.exports = { exportTransaccionesSinComprobante,
-                   exporDiligenciaNoAfiliados,
-                   exporChequesTerceros,
-                   exporFirmasTerceros}
+module.exports = { exportTransaccionesSinComprobante_P,
+                   exporDiligenciaNoAfiliados_P,
+                   exporChequesTerceros_P,
+                   exporFirmasTerceros_P}
