@@ -54,7 +54,7 @@ const exporDiligenciaNoAfiliados_P = (req, resp = response)=>{
     conexion.query(`SELECT  UPPER(concat(na.nombre, ' ', na.apellido)) AS "Nombre",
                             DD.id_no_afiliado AS "Identidad no afiliado",
                             ps.parentesco AS "Parentesco",
-                            f.filial AS "Filial",
+                            f.filial AS "Filial donde realizo la operacion",
                             DD.codigo_afiliado AS "Codigo de Afiliado",
                             DD.cuenta_afectada AS "Cuenta Afectada",
                             o.origen_fondos AS "Origen de Fondo",
@@ -105,7 +105,7 @@ const exporChequesTerceros_P = (req, resp = response)=>{
     const { fechai, fechaf } = req.params;
 
     conexion.query(`SELECT  codigo_de_afiliado AS "Codigo de Afiliado", 
-                        filial AS "Filial",
+                        filial AS "Filial donde realizo la operacion",
                         n_cheque AS "N° de Cheque", 
                         fecha_emision AS "Fecha de emision",
                         UPPER(name) AS "Nombre",
