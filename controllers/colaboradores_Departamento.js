@@ -29,8 +29,8 @@ const postColabDep = (req, resp = response) =>{
     
     const { id_departamento,
             id_colaborador } = req.body;
-
-    conexion.query( `INSERT INTO colaborador_departamento(id_colaborador, id_departamento)VALUES (${id_colaborador}, ${id_departamento});` , (err, res)=>{
+             
+    conexion.query( `INSERT INTO public.colaborador_departamento( id_colaborador, id_departamento) VALUES(${id_colaborador}, ${id_departamento});` , (err, res)=>{
         if(err){
             resp.json({
                 insert : false
