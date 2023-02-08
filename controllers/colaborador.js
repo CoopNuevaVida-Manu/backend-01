@@ -142,7 +142,7 @@ const colabPut = (req, resp = response) =>{
 
 const colabPutPass = (req, resp = response) =>{
     
-    const { id, 
+    const { id_colaborador, 
             colaborador_nombre,
             colaborador_usuario,
             id_oficiona,
@@ -154,7 +154,7 @@ const colabPutPass = (req, resp = response) =>{
                                             id_oficiona=${id_oficiona},
                                             colaborador_password='${colaborador_password}',
                                             id_estado=${id_estado}
-                                             WHERE id_colaborador = ${id}` , (err, res)=>{
+                                             WHERE id_colaborador = ${id_colaborador}` , (err, res)=>{
         if(err){
             return resp.json({
                 put: false
