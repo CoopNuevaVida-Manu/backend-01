@@ -1,5 +1,7 @@
 const oracledb = require('oracledb');
 
+oracledb.initOracleClient({libDir: 'C:\\Oracle\\product\\21.9.0'});
+
 let pool;
 
 async function run (){
@@ -8,7 +10,8 @@ async function run (){
       pool =  oracledb.createPool({
             user          : "NvidaApp",
             password      : "NVIDAAPP",
-            connectString : "nvidaop"
+            // connectString : "nvidaop" //pRODUCCION
+            connectString : "NVIDAOP"
       });
 
       } catch (err) {
